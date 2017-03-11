@@ -1,0 +1,13 @@
+Package: symbolicR
+Title: Bring Comfortable Symbolic Computation in R
+Version: 0.0.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: This package wraps the sympy moudle in python using the reticulate package
+    in order to provide comfortable symbolic computation in R.
+Depends: R (>= 3.3.2)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Imports: reticulate,
+    methods
