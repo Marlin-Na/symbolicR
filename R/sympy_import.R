@@ -15,7 +15,6 @@ sympy_module <- function (refresh = FALSE) {
     op <- getOption("symbolicR.sympymoudle")
 
     if (refresh || is.null(op)) {
-        # Question: Whether to use convert=TRUE or not??
         sympy <- reticulate::import("sympy", convert = FALSE, delay_load = FALSE)
         options(symbolicR.sympymoudle = sympy)
         return(sympy)
@@ -204,6 +203,8 @@ Ops.symbolic <- function (e1, e2) {
 ### Math Functions
 
 subMathList <- list(
+    # TODO
+
     abs = noImplMsgTemplate("abs"),
     sign = noImplMsgTemplate("sign"),
     sqrt = noImplMsgTemplate("sqrt"),
@@ -246,6 +247,7 @@ subMathList <- list(
 )
 
 Math.symbolic <- function (x, ...) {
+    # TODO
 
 }
 
@@ -255,6 +257,8 @@ Math.symbolic <- function (x, ...) {
 
 
 squote <- function (expr, where = parent.frame()) {
+    # TODO
+
     # unquote <- function (e) {
     #     if (is.pairlist(e))
     #         # If a function def is included in the quote, the argument will be
@@ -273,9 +277,11 @@ squote <- function (expr, where = parent.frame()) {
 
 
 sassign <- function (x, value) {
+    # TODO
 
 }
 
+`%:%` <- sassign
 
 
 

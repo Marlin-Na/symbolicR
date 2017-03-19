@@ -19,11 +19,6 @@ reticulate::py_module_available
 
 
 
-sym_class <- function (x) {
-    class(x) <- append("symbolic", class(x))
-    x
-}
-
 
 #' Convert a tuple or dict to R object
 #'
@@ -39,10 +34,18 @@ sym_class <- function (x) {
 #' sym_func("div")(x^3L + 6L*x + 1L, x) %>% R
 #' sym_func("div")(x^3L + 6L*x + 1L, x) %>% R %>% lapply(class)
 R <- function(x) {
-    r <- reticulate::py_to_r(x)
-    addclass <- function (x) {
+    further <- function (x) {
         if (inherits(x, "symbolic"))
             x
+        else if (inherits(x, "sympy.logic.boolalg.BooleanAtom"))
+            if (inherits(x, "sympy.logic.boolalg.BooleanTrue"))
+                TRUE
+            else if (inherits(x, "sympy.logic.boolalg.BooleanFalse"))
+                FALSE
+            else {
+                warning("Do not know TRUE or FALSE, NA generated")
+                NA
+            }
         else if (inherits(x, "python.builtin.object")) {
             class(x) <- append("symbolic", class(x))
             x
@@ -52,7 +55,8 @@ R <- function(x) {
         else
             x
     }
-    addclass(r)
+    r <- reticulate::py_to_r(x)
+    further(r)
 }
 
 

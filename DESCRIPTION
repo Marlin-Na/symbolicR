@@ -12,3 +12,4 @@ RoxygenNote: 6.0.1
 Imports: reticulate,
     methods,
     magrittr
+Suggests: testthat
