@@ -4,6 +4,12 @@
 \name{reexports}
 \alias{reexports}
 \alias{\%>\%}
+\alias{reexports}
+\alias{py_available}
+\alias{reexports}
+\alias{py_numpy_available}
+\alias{reexports}
+\alias{py_module_available}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -12,5 +18,7 @@ below to see their documentation.
 
 \describe{
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+
+  \item{reticulate}{\code{\link[reticulate]{py_available}}, \code{\link[reticulate]{py_numpy_available}}, \code{\link[reticulate]{py_module_available}}}
 }}
 

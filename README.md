@@ -20,7 +20,13 @@ if (!require(symbolicR))
 #> Loading required package: symbolicR
 ```
 
-The package also needs python with numpy and sympy available.
+The package also needs python with numpy and sympy available, you may want to use functions from the reticulate package to check.
+
+``` r
+reticulate::py_available()
+reticulate::py_numpy_available()
+reticulate::py_module_available("sympy")
+```
 
 Example
 -------
