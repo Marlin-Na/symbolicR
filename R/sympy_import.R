@@ -28,27 +28,34 @@ sympy_module <- function (refresh = FALSE) {
 
 
 #' @export
-sym_func <- function (func_name) {
+sym_func <- function (func_name, add_sym_class = TRUE) {
     # The function generate a function which wraps the function imported with
     # reticulate and add class "symbolic" to the result.
 
-    args <- alist(... = )
+    env <- parent.frame()
 
-    body <- substitute({
-        argv <- list(...)
-        result <- do.call(inner_func, argv)
+    if (add_sym_class) {
+        args <- alist(... = )
 
-        # Add class "symbolic" to the result
-        class(result) <- append("symbolic", class(result))
-        result
-    }, list(
-        inner_func = bquote(sympy_module()[[.(func_name)]])
-    ))
+        body <- substitute({
+            argv <- list(...)
+            result <- do.call(inner_func, argv)
 
-    ans <- function () {}
-    body(ans) <- body
-    formals(ans) <- args
-    environment(ans) <- parent.frame()
+            # Add class "symbolic" to the result
+            class(result) <- append("symbolic", class(result))
+            result
+        }, list(
+            inner_func = bquote(sympy_module()[[.(func_name)]])
+        ))
+
+        ans <- function () {}
+        body(ans) <- body
+        formals(ans) <- args
+        environment(ans) <- env
+    }
+    else
+        ans <- sympy_module()[[func_name]]
+
     ans
 }
 

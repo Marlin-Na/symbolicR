@@ -4,10 +4,13 @@
 \alias{R}
 \title{Convert a tuple or dict to R object}
 \usage{
-R(x)
+R(x, add_sym_class = TRUE)
 }
 \arguments{
 \item{x}{A python object}
+
+\item{add_sym_class}{Logical value indicating whether to add "symbolic" class to the elements
+that can not be converted.}
 }
 \value{
 A corresponding R object, if any of its elements can not be converted to

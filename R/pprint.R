@@ -16,9 +16,10 @@
 #' @export
 #'
 pprint <- function (expr, ...) {
-    pretty <- sym_func("pretty")
+    pretty <- sym_func("pretty", add_sym_class = FALSE)
     out <-
         reticulate::py_to_r(pretty(expr, ...))
+    out <- paste0(out, "\n")
     cat(out)
     invisible(expr)
 }

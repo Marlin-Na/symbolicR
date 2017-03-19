@@ -24,6 +24,9 @@ reticulate::py_module_available
 #'
 #' @param x
 #'     A python object
+#' @param add_sym_class
+#'     Logical value indicating whether to add "symbolic" class to the elements
+#'     that can not be converted.
 #' @return
 #'     A corresponding R object, if any of its elements can not be converted to
 #'     R, a "symbolic" class will be added to that element.
@@ -33,7 +36,7 @@ reticulate::py_module_available
 #' sym_func("div")(x^3L + 6L*x + 1L, x)
 #' sym_func("div")(x^3L + 6L*x + 1L, x) %>% R
 #' sym_func("div")(x^3L + 6L*x + 1L, x) %>% R %>% lapply(class)
-R <- function(x) {
+R <- function(x, add_sym_class = TRUE) {
     further <- function (x) {
         if (inherits(x, "symbolic"))
             x
@@ -47,11 +50,15 @@ R <- function(x) {
                 NA
             }
         else if (inherits(x, "python.builtin.object")) {
-            class(x) <- append("symbolic", class(x))
-            x
+            if (add_sym_class) {
+                class(x) <- append("symbolic", class(x))
+                x
+            }
+            else
+                x
         }
         else if (is.list(x))
-            lapply(x, addclass)
+            lapply(x, further)
         else
             x
     }
