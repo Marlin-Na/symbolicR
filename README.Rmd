@@ -45,6 +45,60 @@ reticulate::py_module_available("sympy")
 ```
 
 
-## Example
+## Usage
+
+
+### *%:%* Operator
+
+TODO...
+
+
+### Symbols
+
+We provide two ways to initiate a symbol. First, you can pass a character to
+function `sym` with assumptions and assign it to a R variable.
+
+```{r}
+x <- sym("x", negative = TRUE)
+y <- sym("y", positive = TRUE)
+x >= y
+```
+
+However it is not convenient when you want to initiate two or more variables, thus
+we provide a function `syms_init` to automatically initiate and assign symbols to a given environment.
+In this function, named arguments will be treated as assumptions while arguments without
+a name will be deparsed and initiated as symbols.
+
+```{r}
+syms_init(alpha, beta, gamma, real = TRUE)
+alpha ^ beta
+```
+
+
+### R Operator on Symbolic Expressions
+
+The following R operators can be directly used on the symbolic expressions.
+
+- `+`, `-`, `*`, `/`, `^`, `%%`, `%/%`
+
+- `&`, `|`, `!`
+
+- `==`, `!=`, `<`, `<=`, `>=`, `>`
+
+```{r}
+(x + y) / x
+```
+
+However the returned object by these operators is no longer a numeric or
+logical value, but also a symbolic expression. To evalulate and convert a
+symbolic expression, use ..... 
+
+
+### Math Functions on Symbolic Expressions
+
+TODO...
+
+
+
 
 
