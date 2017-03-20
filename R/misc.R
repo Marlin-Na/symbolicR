@@ -40,6 +40,7 @@ R <- function(x, add_sym_class = TRUE) {
     further <- function (x) {
         if (inherits(x, "symbolic"))
             x
+        # TODO: How to convert other types??
         else if (inherits(x, "sympy.logic.boolalg.BooleanAtom"))
             if (inherits(x, "sympy.logic.boolalg.BooleanTrue"))
                 TRUE

@@ -35,6 +35,10 @@ Usage
 
 TODO...
 
+(I intended to provide an operator `%:%` (or with another name) to assign symbolic expressions, by doing so, the variables on the right side (may be identified with `all.vars`) will automatically substituted as `sym("variable_name")`, and all binary operators and math functions will be substituted as the corresponding sympy functions. While expressions wrapped with `.()` will not be substituted and evaluated in R (as inspired by `bquote`). For example, `z %:% a * sin(x) + .(y)` may be equivalent to `z <- sym("a") * sin(sym("x")) + y`.)
+
+(Not implemented yet)
+
 ### Symbols
 
 We provide two ways to initiate a symbol. First, you can pass a character to function `sym` with assumptions and assign it to a R variable.
@@ -78,5 +82,13 @@ The following R operators can be directly used on the symbolic expressions.
 However the returned object by these operators is no longer a numeric or logical value, but also a symbolic expression. To evalulate and convert a symbolic expression, use .....
 
 ### Math Functions on Symbolic Expressions
+
+TODO...
+
+### Other Algebra Functions
+
+TODO...
+
+### Convert a Symbolic Expression to a *R* Function
 
 TODO...
