@@ -42,7 +42,7 @@ sym_func <- function (func_name, add_sym_class = TRUE) {
             result <- do.call(inner_func, argv)
 
             # Add class "symbolic" to the result
-            class(result) <- append("symbolic", class(result))
+            class(result) <- c("symbolic", class(result))
             result
         }, list(
             inner_func = bquote(sympy_module()[[.(func_name)]])
@@ -335,7 +335,9 @@ sassign <- function (x, value) {
 #' x
 #' y
 #' class(x)
-sym <- sym_func("symbols")
+sym <- function (name, ...) {
+    sym_func("symbols")(name, ...)
+}
 
 #' @rdname symbols
 #' @export
@@ -350,13 +352,13 @@ syms_init <- function (..., .envir = parent.frame(), .quite = FALSE) {
     }
     assumptions <- args[!to_set]
     symbols <- unique(args[to_set])
-    symbols_chr <- lapply(symbols, function (x) deparse(x))
+    symbols_chr <- lapply(symbols, deparse)
     syms_list <- vector("list", length = length(symbols_chr))
     for (i in seq_along(symbols_chr)) {
-        call <- as.call(c(list(quote(sym)), symbols_chr[i], assumptions))
-        sym <- eval(call)
-        assign(symbols_chr[[i]], sym, envir = .envir)
-        syms_list[[i]] <- sym
+        thesym <- do.call(sym, c(symbols_chr[i], assumptions),
+                          envir = parent.frame())
+        assign(symbols_chr[[i]], thesym, envir = .envir)
+        syms_list[[i]] <- thesym
         if (!.quite)
             message("Initiate symbol ", dQuote(symbols_chr[[i]]))
     }

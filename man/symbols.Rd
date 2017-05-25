@@ -6,7 +6,7 @@
 \alias{syms_init}
 \title{Initiate Symbols}
 \usage{
-sym(...)
+sym(name, ...)
 
 syms_init(..., .envir = parent.frame(), .quite = FALSE)
 }
