@@ -63,6 +63,8 @@ R <- function(x, add_sym_class = TRUE) {
         else
             x
     }
+
+    # TODO: Throw an error if the object can not be converted?
     r <- reticulate::py_to_r(x)
     further(r)
 }

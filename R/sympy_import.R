@@ -212,50 +212,65 @@ Ops.symbolic <- function (e1, e2) {
 subMathList <- list(
     # TODO
 
-    abs = noImplMsgTemplate("abs"),
-    sign = noImplMsgTemplate("sign"),
-    sqrt = noImplMsgTemplate("sqrt"),
-    floor = noImplMsgTemplate("floor"),
-    ceiling = noImplMsgTemplate("ceiling"),
-    trunc = noImplMsgTemplate("trunc"),
-    round = noImplMsgTemplate("round"),
-    signif = noImplMsgTemplate("signif"),
+    abs      = function (x) sym_func("Abs")(x),
+    sign     = noImplMsgTemplate("sign"),
+    sqrt     = function (x) sym_func("sqrt")(x),
+    floor    = noImplMsgTemplate("floor"),
+    ceiling  = noImplMsgTemplate("ceiling"),
+    trunc    = noImplMsgTemplate("trunc"),
+    round    = noImplMsgTemplate("round"),
+    signif   = noImplMsgTemplate("signif"),
 
-    exp = noImplMsgTemplate("exp"),
-    log = noImplMsgTemplate("log"),
-    expm1 = noImplMsgTemplate("expm1"),
-    log1p = noImplMsgTemplate("log1p"),
-    cos = noImplMsgTemplate("cos"),
-    sin = noImplMsgTemplate("sin"),
-    tan = noImplMsgTemplate("tan"),
-    cospi = noImplMsgTemplate("cospi"),
-    sinpi = noImplMsgTemplate("sinpi"),
-    tanpi = noImplMsgTemplate("tanpi"),
-    acos = noImplMsgTemplate("acos"),
-    asin = noImplMsgTemplate("asin"),
-    atan = noImplMsgTemplate("atan"),
+    exp      = function (x) sym_func("exp")(x),
+    log      = function (x, base)
+        if (missing(base)) sym_func("log")(x)
+        else               sym_func("log")(x, base),
+    expm1    = noImplMsgTemplate("expm1"),
+    log1p    = noImplMsgTemplate("log1p"),
+    cos      = function (x) sym_func("cos")(x),
+    sin      = function (x) sym_func("sin")(x),
+    tan      = function (x) sym_func("tan")(x),
+    cospi    = noImplMsgTemplate("cospi"),
+    sinpi    = noImplMsgTemplate("sinpi"),
+    tanpi    = noImplMsgTemplate("tanpi"),
+    acos     = function (x) sym_func("acos")(x),
+    asin     = function (x) sym_func("asin")(x),
+    atan     = function (x) sym_func("atan")(x),
 
-    cosh = noImplMsgTemplate("cosh"),
-    sinh = noImplMsgTemplate("sinh"),
-    tanh = noImplMsgTemplate("tanh"),
-    acosh = noImplMsgTemplate("acosh"),
-    asinh = noImplMsgTemplate("asinh"),
-    atanh = noImplMsgTemplate("atanh"),
+    cosh     = function (x) sym_func("cosh")(x),
+    sinh     = function (x) sym_func("sinh")(x),
+    tanh     = function (x) sym_func("tanh")(x),
+    acosh    = function (x) sym_func("acosh")(x),
+    asinh    = function (x) sym_func("asinh")(x),
+    atanh    = function (x) sym_func("atanh")(x),
 
-    lgamma = noImplMsgTemplate("lgamma"),
-    gamma = noImplMsgTemplate("gamma"),
-    digamma = noImplMsgTemplate("digamma"),
-    trigamma = noImplMsgTemplate("trigamma"),
+    lgamma   = function (x) sym_func("loggamma")(x),
+    gamma    = function (x) sym_func("gamma")(x),
+    digamma  = function (x) sym_func("digamma")(x),
+    trigamma = function (x) sym_func("trigamma")(x),
 
-    cumsum = noImplMsgTemplate("cumsum"),
-    cumprod = noImplMsgTemplate("cumprod"),
-    cummax = noImplMsgTemplate("cummax"),
-    cummin = noImplMsgTemplate("cummin")
+    cumsum   = noImplMsgTemplate("cumsum"),
+    cumprod  = noImplMsgTemplate("cumprod"),
+    cummax   = noImplMsgTemplate("cummax"),
+    cummin   = noImplMsgTemplate("cummin")
 )
 
+#' Math Functions for Symbolic Expressions
+#'
+#' @param x
+#'     Object
+#' @param ...
+#'     Further arguments passed to each method
+#' @return
+#'     All these methods return a symbolic expression.
+#' @export
+#'
+#' @examples
+#' syms_init(x, y, z)
+#' sqrt(x)
 Math.symbolic <- function (x, ...) {
-    # TODO
-
+    cal <- as.call(c(as.name(.Generic), x, ...))
+    evalWithSubEnv(cal, replacement = subMathList, parenv = .GenericCallEnv)
 }
 
 
