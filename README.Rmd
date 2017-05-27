@@ -47,22 +47,6 @@ reticulate::py_module_available("sympy")
 
 ## Usage
 
-
-### *%:%* Operator
-
-TODO...
-
-(I intended to provide an operator `%:%` (or with another name) to assign symbolic
-expressions, by doing so, the variables on the right side (may be identified with `all.vars`)
-will automatically substituted as `sym("variable_name")`, and all binary operators and
-math functions will be substituted as the corresponding sympy functions. While expressions
-wrapped with `.()` will not be substituted and evaluated in R (as inspired by `bquote`).
-For example, `z %:% a * sin(x) + .(y)` may be equivalent to `z <- sym("a") * sin(sym("x")) + y`.)
-
-(Not implemented yet)
-
-
-
 ### Symbols
 
 We provide two ways to initiate a symbol. First, you can pass a character to
@@ -106,7 +90,11 @@ symbolic expression, use .....
 
 ### Math Functions on Symbolic Expressions
 
-TODO...
+We provide methods of Math functions on symbolic expression.
+
+```{r}
+log(sin(alpha), 3L)
+```
 
 
 ### Other Algebra Functions
